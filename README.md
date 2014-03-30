@@ -8,6 +8,6 @@ simple_socket.c
 
 This file show how work a TCP Socket.
 
-# gcc simple_socket.c 
+"# gcc simple_socket.c" 
 Run fine on OpenBSD 5.5
 
