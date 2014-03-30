@@ -13,46 +13,46 @@ int main(int argc , char *argv[])
     struct sockaddr_in server;
     char *message , server_reply[2000];
      
-   		 //Création du socket.
+   		 //Socket initialization.
 
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
     if (socket_desc == -1)
     {
-        printf("Impossible de créer le socket");
+        printf("Cannot create socket");
     }
-     puts("\n\nSocket crée! \n "); 
+     puts("\n\nSocket created! \n "); 
    
     server.sin_addr.s_addr = inet_addr("173.194.34.63");
     server.sin_family = AF_INET;
     server.sin_port = htons( 80 );
  
-    		//Connection au server distant
+    		//Connection initialization
 
     if (connect(socket_desc , (struct sockaddr *)&server , sizeof(server)) < 0)
     {
-        puts("\nConnection impossible, vérifiez l'ip et le port\n");
+        puts("\nCannot connect, please check IP & PORT\n");
         return 1;
     }
      
-    puts("\nConnecté!\n");
+    puts("\nConnected!\n");
      
-   		 //Envoi d'un message au server distant.
+   		 //Sending message to HOST.
 
     message = "GET / HTTP/1.1\r\n\r\n";
     if( send(socket_desc , message , strlen(message) , 0) < 0)
     {
-        puts("\nEchec d'envoi du méssage!\n");
+        puts("\nCannot send message!\n");
         return 1;
     }
-    puts("\nMessage envoyé avec succès!\n");
+    puts("\nMessage send!\n");
      
-    		//Reception du message de retour.
+    		//Reply message.
 
     if( recv(socket_desc, server_reply , 2000 , 0) < 0)
     {
-        puts("\nEchec de la réception du mesage retour\n\n");
+        puts("\nDid not receive the reply message\n\n");
     }
-    puts("\nMessage retour reçu avec succès!\n\n");
+    puts("\nReply message received!\n\n");
     puts(server_reply);
      
     return 0;
